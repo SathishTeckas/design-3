@@ -1,0 +1,2390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiftBox4you - Main Branch Design Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #FDF8F3 0%, #F8EEE4 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Color Palette Variables */
+        :root {
+            --primary: #E07B5C;
+            --primary-dark: #D06A4C;
+            --primary-light: #F5E6DA;
+            --secondary: #C4956A;
+            --secondary-dark: #A67B52;
+            --accent-purple: #6B7FD7;
+            --accent-green: #4CAF78;
+            --accent-gold: #F5A623;
+            --background: #FDF8F3;
+            --background-dark: #F8EEE4;
+            --card: #FFFFFF;
+            --text-dark: #3D3D3D;
+            --text-gray: #888888;
+            --text-light: #AAAAAA;
+            --border: #F5E6DA;
+        }
+
+        .preview-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        h1 span {
+            color: var(--primary);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 60px 0 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .screens-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .phone-frame {
+            width: 280px;
+            height: 580px;
+            background: #FFFFFF;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow:
+                0 30px 60px rgba(0,0,0,0.12),
+                0 15px 30px rgba(0,0,0,0.06),
+                inset 0 0 0 1px rgba(255,255,255,0.9);
+            position: relative;
+            transition: transform 0.4s ease;
+        }
+
+        .phone-frame:hover {
+            transform: translateY(-10px);
+        }
+
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 28px;
+            background: var(--background);
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen-label {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
+        .screen-label span {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        /* ============ SPLASH SCREEN ============ */
+        .splash-screen {
+            background: linear-gradient(160deg, #FDF8F3 0%, #F8EEE4 50%, #FDF8F3 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .splash-glow {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .splash-glow.top-right {
+            width: 180px;
+            height: 180px;
+            background: rgba(224, 123, 92, 0.2);
+            top: -60px;
+            right: -60px;
+        }
+
+        .splash-glow.bottom-left {
+            width: 160px;
+            height: 160px;
+            background: rgba(196, 149, 106, 0.15);
+            bottom: -40px;
+            left: -40px;
+        }
+
+        .splash-ring {
+            position: absolute;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: ringPulse 2s ease-out infinite;
+        }
+
+        .splash-ring:nth-child(1) { width: 120px; height: 120px; animation-delay: 0s; }
+        .splash-ring:nth-child(2) { width: 120px; height: 120px; animation-delay: 0.7s; }
+        .splash-ring:nth-child(3) { width: 120px; height: 120px; animation-delay: 1.4s; }
+
+        @keyframes ringPulse {
+            0% { transform: scale(0.8); opacity: 0.6; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .splash-confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            animation: confettiFall 2.5s ease-in-out infinite;
+        }
+
+        .splash-confetti:nth-child(4) { background: var(--primary); top: 18%; left: 15%; animation-delay: 0s; }
+        .splash-confetti:nth-child(5) { background: var(--secondary); top: 22%; right: 18%; animation-delay: 0.5s; }
+        .splash-confetti:nth-child(6) { background: var(--primary); bottom: 28%; left: 20%; animation-delay: 1s; }
+        .splash-confetti:nth-child(7) { background: var(--secondary); bottom: 32%; right: 15%; animation-delay: 1.5s; }
+
+        @keyframes confettiFall {
+            0%, 100% { transform: translateY(0); opacity: 0; }
+            20%, 80% { opacity: 0.7; }
+            100% { transform: translateY(40px); opacity: 0; }
+        }
+
+        .splash-logo {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin-bottom: 28px;
+            box-shadow: 0 20px 40px rgba(224, 123, 92, 0.4);
+            animation: logoFloat 4s ease-in-out infinite;
+            position: relative;
+            z-index: 5;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .splash-title {
+            display: flex;
+            align-items: baseline;
+            position: relative;
+            z-index: 5;
+        }
+
+        .splash-title-main {
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -1px;
+        }
+
+        .splash-title-accent {
+            font-size: 40px;
+            font-weight: 300;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        .splash-tagline {
+            font-size: 15px;
+            color: var(--text-gray);
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .splash-loader {
+            position: absolute;
+            bottom: 90px;
+            text-align: center;
+        }
+
+        .splash-loader-bar {
+            width: 130px;
+            height: 5px;
+            background: rgba(224, 123, 92, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+
+        .splash-loader-fill {
+            width: 70%;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            animation: loadingBar 2s ease-in-out infinite;
+        }
+
+        @keyframes loadingBar {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .splash-loader-text {
+            font-size: 11px;
+            color: var(--text-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ============ ONBOARDING SCREENS ============ */
+        .onboarding-screen {
+            background: var(--background);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 24px 30px;
+            position: relative;
+        }
+
+        .skip-btn {
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            font-size: 15px;
+            color: var(--text-gray);
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .onboarding-illustration {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gift-box-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+        }
+
+        .gift-box-body {
+            width: 100%;
+            height: 100%;
+            border-radius: 26px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .gift-box-body.coral { background: linear-gradient(135deg, #E07B5C, #D06A4C); }
+        .gift-box-body.purple { background: linear-gradient(135deg, #6B7FD7, #5A6EC6); }
+        .gift-box-body.green { background: linear-gradient(135deg, #4CAF78, #3D9E69); }
+        .gift-box-body.gold { background: linear-gradient(135deg, #F5A623, #E69612); }
+
+        .gift-ribbon-v {
+            position: absolute;
+            width: 24px;
+            height: 100%;
+            left: 50%;
+            margin-left: -12px;
+            border-radius: 4px;
+        }
+
+        .gift-ribbon-h {
+            position: absolute;
+            width: 100%;
+            height: 24px;
+            top: 50%;
+            margin-top: -12px;
+            border-radius: 4px;
+        }
+
+        .coral .gift-ribbon-v, .coral .gift-ribbon-h { background: #C4956A; }
+        .purple .gift-ribbon-v, .purple .gift-ribbon-h { background: #A8B4E8; }
+        .green .gift-ribbon-v, .green .gift-ribbon-h { background: #8ED4A8; }
+        .gold .gift-ribbon-v, .gold .gift-ribbon-h { background: #FFD580; }
+
+        .gift-lid {
+            position: absolute;
+            top: -14px;
+            left: -6px;
+            width: 172px;
+            height: 50px;
+            border-radius: 16px 16px 4px 4px;
+            transform: perspective(800px) rotateX(-25deg);
+            transform-origin: bottom center;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        }
+
+        .gift-lid.coral { background: linear-gradient(135deg, #E8856A, #D57050); }
+        .gift-lid.purple { background: linear-gradient(135deg, #7589E1, #6478D0); }
+        .gift-lid.green { background: linear-gradient(135deg, #5CBF88, #4DAE79); }
+        .gift-lid.gold { background: linear-gradient(135deg, #FFB633, #F5A623); }
+
+        .gift-bow {
+            position: absolute;
+            top: -55px;
+            left: 50%;
+            margin-left: -30px;
+            font-size: 60px;
+            animation: bowBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bowBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(-5deg); }
+            75% { transform: translateY(-8px) rotate(5deg); }
+        }
+
+        .gift-content-icon {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            margin-left: -45px;
+            width: 90px;
+            height: 90px;
+            background: white;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 20px;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .sparkle:nth-child(1) { top: -25px; left: -35px; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: -5px; right: -40px; animation-delay: 0.3s; }
+        .sparkle:nth-child(3) { bottom: 35px; left: -30px; animation-delay: 0.6s; }
+        .sparkle:nth-child(4) { bottom: 20px; right: -35px; animation-delay: 0.9s; }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .onboarding-content {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .onboarding-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+            margin-bottom: 18px;
+            letter-spacing: -0.5px;
+        }
+
+        .onboarding-description {
+            font-size: 16px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .onboarding-footer {
+            padding-bottom: 20px;
+        }
+
+        .pagination-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .dot {
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(224, 123, 92, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dot.inactive { width: 8px; }
+        .dot.active { width: 30px; background: var(--primary); }
+
+        .onboarding-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 18px;
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 12px 30px rgba(224, 123, 92, 0.35);
+        }
+
+        .btn-icon-circle {
+            width: 34px;
+            height: 34px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        /* ============ LOGIN SCREEN ============ */
+        .login-screen {
+            background: var(--background);
+            height: 100%;
+            padding: 70px 24px 30px;
+            overflow-y: auto;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .login-logo {
+            width: 88px;
+            height: 88px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            margin: 0 auto 25px;
+            box-shadow: 0 12px 30px rgba(224, 123, 92, 0.35);
+        }
+
+        .login-welcome {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            font-size: 15px;
+            color: var(--text-gray);
+        }
+
+        .login-form {
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            margin-left: 4px;
+            display: block;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 18px;
+            background: white;
+            border: 1.5px solid #F0EBE6;
+            border-radius: 16px;
+            font-size: 15px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .input-field .icon {
+            color: var(--secondary);
+            font-size: 18px;
+        }
+
+        .input-field .placeholder {
+            color: var(--text-light);
+            flex: 1;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 8px;
+        }
+
+        .forgot-password a {
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(224, 123, 92, 0.35);
+            margin-bottom: 28px;
+        }
+
+        .login-btn .icon-circle {
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: #EBE6E1;
+        }
+
+        .divider-text {
+            padding: 0 16px;
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .social-btns {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 16px;
+            background: white;
+            border: 1.5px solid #F0EBE6;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .social-btn.apple {
+            background: #1F2937;
+            border-color: #1F2937;
+            color: white;
+        }
+
+        .google-icon {
+            width: 24px;
+            height: 24px;
+            background: #F5F5F5;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #4285F4;
+            font-size: 14px;
+        }
+
+        .signup-link {
+            text-align: center;
+            font-size: 15px;
+            color: var(--text-gray);
+        }
+
+        .signup-link a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* ============ HOME SCREEN ============ */
+        .home-screen {
+            background: var(--background);
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 80px;
+            position: relative;
+        }
+
+        .home-glow {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 180px;
+            height: 180px;
+            background: rgba(224, 123, 92, 0.12);
+            border-radius: 50%;
+        }
+
+        .home-header {
+            padding: 50px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .greeting-text {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 4px;
+        }
+
+        .user-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .home-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(224, 123, 92, 0.3);
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 12px;
+            padding: 0 20px;
+            margin-bottom: 28px;
+        }
+
+        .stat-box {
+            flex: 1;
+            background: white;
+            border-radius: 18px;
+            padding: 18px 14px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        .stat-num {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .stat-num.coral { color: var(--primary); }
+        .stat-num.purple { color: var(--accent-purple); }
+        .stat-num.green { color: var(--accent-green); }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-top: 4px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .see-all-btn {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .event-card {
+            margin: 0 20px 12px;
+            background: white;
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        .event-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+
+        .event-icon.birthday { background: #FEF3F0; }
+        .event-icon.anniversary { background: #F0F4FE; }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .event-date {
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        .event-badge {
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .event-badge.soon {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 12px rgba(224, 123, 92, 0.3);
+        }
+
+        .event-badge.later {
+            background: #F0F4FE;
+            color: #5B7FD7;
+        }
+
+        .quick-actions-section {
+            padding: 0 20px;
+            margin-top: 28px;
+        }
+
+        .quick-actions-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .quick-action-btn {
+            flex: 1;
+            background: white;
+            border-radius: 18px;
+            padding: 20px 10px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+        }
+
+        .quick-action-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 22px;
+        }
+
+        .quick-action-icon.primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 6px 16px rgba(224, 123, 92, 0.3);
+        }
+
+        .quick-action-icon.outline {
+            background: #FAFAFA;
+            border: 2px solid;
+        }
+
+        .quick-action-icon.outline.purple { border-color: var(--accent-purple); color: var(--accent-purple); }
+        .quick-action-icon.outline.green { border-color: var(--accent-green); color: var(--accent-green); }
+
+        .quick-action-text {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        /* ============ CALENDAR SCREEN ============ */
+        .calendar-screen {
+            background: var(--background);
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 80px;
+        }
+
+        .calendar-header {
+            padding: 50px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .today-btn {
+            background: white;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .calendar-box {
+            margin: 0 20px 24px;
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .calendar-gradient-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px 16px 16px;
+        }
+
+        .month-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .month-nav-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .month-label {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .weekdays-row {
+            display: flex;
+        }
+
+        .weekday-cell {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .days-grid {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 12px;
+        }
+
+        .day-cell {
+            width: calc(100% / 7);
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-inner {
+            width: 85%;
+            height: 85%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .day-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .day-text.muted {
+            color: #CCCCCC;
+        }
+
+        .day-inner.today {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            box-shadow: 0 4px 12px rgba(224, 123, 92, 0.35);
+        }
+
+        .day-inner.today .day-text {
+            color: white;
+            font-weight: 600;
+        }
+
+        .event-dot {
+            position: absolute;
+            bottom: 4px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .event-dot.white {
+            background: white;
+        }
+
+        .upcoming-section {
+            padding: 0 20px;
+        }
+
+        .upcoming-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+        }
+
+        .upcoming-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 14px;
+        }
+
+        .upcoming-dot.coral { background: var(--primary); }
+        .upcoming-dot.purple { background: var(--accent-purple); }
+
+        .upcoming-info {
+            flex: 1;
+        }
+
+        .upcoming-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .upcoming-date {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-top: 2px;
+        }
+
+        .days-tag {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .days-tag.coral {
+            background: rgba(224, 123, 92, 0.1);
+            color: var(--primary);
+        }
+
+        .days-tag.purple {
+            background: rgba(91, 127, 215, 0.1);
+            color: var(--accent-purple);
+        }
+
+        .fab {
+            position: absolute;
+            bottom: 100px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 8px 24px rgba(224, 123, 92, 0.4);
+        }
+
+        /* ============ CIRCLES SCREEN ============ */
+        .circles-screen {
+            background: var(--background);
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 80px;
+        }
+
+        .circles-header {
+            padding: 50px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .add-btn {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            box-shadow: 0 8px 20px rgba(224, 123, 92, 0.35);
+        }
+
+        .circle-card {
+            margin: 0 20px 14px;
+            background: white;
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        .circle-top {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .circle-emoji {
+            width: 46px;
+            height: 46px;
+            background: var(--background);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-right: 14px;
+        }
+
+        .circle-name {
+            flex: 1;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .member-count {
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        .avatars-row {
+            display: flex;
+        }
+
+        .member-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .member-avatar:not(:first-child) {
+            margin-left: -10px;
+        }
+
+        .member-avatar.more {
+            background: #F5F0EB;
+            color: var(--text-gray);
+            font-size: 12px;
+        }
+
+        .create-circle-card {
+            margin: 0 20px;
+            background: white;
+            border: 2px dashed #F0EBE6;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .create-circle-icon {
+            width: 46px;
+            height: 46px;
+            background: #FEF3F0;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .create-circle-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* ============ GIFTS SCREEN ============ */
+        .gifts-screen {
+            background: var(--background);
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 80px;
+        }
+
+        .gifts-header {
+            padding: 50px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-btn {
+            width: 44px;
+            height: 44px;
+            background: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            font-size: 20px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+
+        .tabs-row {
+            display: flex;
+            gap: 10px;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .tab.inactive {
+            background: white;
+            color: var(--text-gray);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 8px 20px rgba(224, 123, 92, 0.3);
+        }
+
+        .gift-card {
+            margin: 0 20px 12px;
+            background: white;
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        .gift-image {
+            width: 74px;
+            height: 74px;
+            background: var(--background);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .gift-info {
+            flex: 1;
+        }
+
+        .gift-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .gift-for {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 10px;
+        }
+
+        .price-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 4px 12px rgba(224, 123, 92, 0.25);
+        }
+
+        .heart-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .heart-btn.active { color: var(--primary); }
+        .heart-btn.inactive { color: #CCCCCC; }
+
+        /* ============ PROFILE SCREEN ============ */
+        .profile-screen {
+            background: var(--background);
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 80px;
+            position: relative;
+        }
+
+        .profile-glow {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            margin-left: -100px;
+            width: 200px;
+            height: 200px;
+            background: rgba(224, 123, 92, 0.1);
+            border-radius: 50%;
+        }
+
+        .profile-top {
+            text-align: center;
+            padding: 50px 20px 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-avatar {
+            width: 96px;
+            height: 96px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            font-weight: 600;
+            margin: 0 auto 18px;
+            box-shadow: 0 15px 40px rgba(224, 123, 92, 0.35);
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .profile-email {
+            font-size: 15px;
+            color: var(--text-gray);
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 12px;
+            padding: 0 20px;
+            margin-bottom: 28px;
+        }
+
+        .menu-section {
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 10px;
+            gap: 14px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+        }
+
+        .menu-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .menu-icon.coral { background: #FEF3F0; color: var(--primary); }
+        .menu-icon.purple { background: #F0F4FE; color: var(--accent-purple); }
+        .menu-icon.green { background: #F0FBF5; color: var(--accent-green); }
+
+        .menu-info {
+            flex: 1;
+        }
+
+        .menu-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .menu-subtitle {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-top: 2px;
+        }
+
+        .menu-arrow {
+            color: #CCCCCC;
+            font-size: 18px;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 20px;
+            padding: 16px;
+            background: white;
+            border: 1.5px solid #FEF3F0;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* ============ TAB BAR ============ */
+        .tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 88px;
+            background: white;
+            border-radius: 28px 28px 0 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 10px 26px;
+            box-shadow: 0 -6px 24px rgba(0,0,0,0.08);
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tab-icon {
+            font-size: 24px;
+        }
+
+        .tab-icon.active { color: var(--primary); }
+        .tab-icon.inactive { color: var(--text-gray); }
+
+        .tab-label {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .tab-label.active { color: var(--primary); }
+        .tab-label.inactive { color: var(--text-gray); }
+
+        /* ============ COLOR PALETTE SECTION ============ */
+        .color-section {
+            margin-top: 80px;
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .color-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .color-title span {
+            color: var(--primary);
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 20px;
+        }
+
+        .color-swatch {
+            text-align: center;
+        }
+
+        .swatch-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .swatch-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+        }
+
+        .swatch-hex {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            font-family: monospace;
+        }
+
+        /* ============ FLOW DIAGRAM ============ */
+        .flow-section {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .flow-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .flow-box {
+            padding: 15px 25px;
+            background: white;
+            border-radius: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .flow-box.main {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 8px 25px rgba(224, 123, 92, 0.35);
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .flow-tabs {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .flow-tab {
+            padding: 10px 18px;
+            background: rgba(224, 123, 92, 0.1);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <h1>Gift<span>Box</span>4you</h1>
+        <p class="subtitle">Main Branch Design - Warm Cream + Rich Coral Theme</p>
+
+        <!-- SPLASH SCREEN -->
+        <h2 class="section-title">Splash Screen</h2>
+        <div class="screens-row">
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="splash-screen">
+                            <div class="splash-glow top-right"></div>
+                            <div class="splash-glow bottom-left"></div>
+                            <div class="splash-ring"></div>
+                            <div class="splash-ring"></div>
+                            <div class="splash-ring"></div>
+                            <div class="splash-confetti"></div>
+                            <div class="splash-confetti"></div>
+                            <div class="splash-confetti"></div>
+                            <div class="splash-confetti"></div>
+                            <div class="splash-logo">🎁</div>
+                            <div class="splash-title">
+                                <span class="splash-title-main">GiftBox</span>
+                                <span class="splash-title-accent">4you</span>
+                            </div>
+                            <div class="splash-tagline">Perfect gifts, every time</div>
+                            <div class="splash-loader">
+                                <div class="splash-loader-bar">
+                                    <div class="splash-loader-fill"></div>
+                                </div>
+                                <div class="splash-loader-text">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Splash<span>Animated intro with rings</span></div>
+            </div>
+        </div>
+
+        <!-- ONBOARDING SCREENS -->
+        <h2 class="section-title">Onboarding Flow</h2>
+        <div class="screens-row">
+            <!-- Step 1: Coral -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="onboarding-screen">
+                            <div class="skip-btn">Skip</div>
+                            <div class="onboarding-illustration">
+                                <div class="gift-box-container">
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <div class="gift-box-body coral">
+                                        <div class="gift-ribbon-v"></div>
+                                        <div class="gift-ribbon-h"></div>
+                                    </div>
+                                    <div class="gift-lid coral"></div>
+                                    <div class="gift-bow">🎀</div>
+                                    <div class="gift-content-icon">📋</div>
+                                </div>
+                            </div>
+                            <div class="onboarding-content">
+                                <div class="onboarding-title">Know What They<br>Really Want</div>
+                                <div class="onboarding-description">Send questionnaires to friends and family to discover their true gift preferences.</div>
+                            </div>
+                            <div class="onboarding-footer">
+                                <div class="pagination-dots">
+                                    <div class="dot active"></div>
+                                    <div class="dot inactive"></div>
+                                    <div class="dot inactive"></div>
+                                    <div class="dot inactive"></div>
+                                </div>
+                                <div class="onboarding-btn">
+                                    <span>Next</span>
+                                    <div class="btn-icon-circle">→</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Step 1<span>Questionnaires (Coral)</span></div>
+            </div>
+
+            <!-- Step 2: Purple -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="onboarding-screen">
+                            <div class="skip-btn">Skip</div>
+                            <div class="onboarding-illustration">
+                                <div class="gift-box-container">
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <div class="gift-box-body purple">
+                                        <div class="gift-ribbon-v"></div>
+                                        <div class="gift-ribbon-h"></div>
+                                    </div>
+                                    <div class="gift-lid purple"></div>
+                                    <div class="gift-bow">🎀</div>
+                                    <div class="gift-content-icon">👥</div>
+                                </div>
+                            </div>
+                            <div class="onboarding-content">
+                                <div class="onboarding-title">Build Your<br>Gift Circle</div>
+                                <div class="onboarding-description">Organize your loved ones into circles and keep track of everyone's special moments.</div>
+                            </div>
+                            <div class="onboarding-footer">
+                                <div class="pagination-dots">
+                                    <div class="dot inactive"></div>
+                                    <div class="dot active" style="background: #6B7FD7;"></div>
+                                    <div class="dot inactive"></div>
+                                    <div class="dot inactive"></div>
+                                </div>
+                                <div class="onboarding-btn" style="background: linear-gradient(135deg, #6B7FD7, #5A6EC6); box-shadow: 0 12px 30px rgba(107, 127, 215, 0.35);">
+                                    <span>Next</span>
+                                    <div class="btn-icon-circle" style="color: #6B7FD7;">→</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Step 2<span>Gift Circles (Purple)</span></div>
+            </div>
+
+            <!-- Step 3: Green -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="onboarding-screen">
+                            <div class="skip-btn">Skip</div>
+                            <div class="onboarding-illustration">
+                                <div class="gift-box-container">
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <div class="gift-box-body green">
+                                        <div class="gift-ribbon-v"></div>
+                                        <div class="gift-ribbon-h"></div>
+                                    </div>
+                                    <div class="gift-lid green"></div>
+                                    <div class="gift-bow">🎀</div>
+                                    <div class="gift-content-icon">📅</div>
+                                </div>
+                            </div>
+                            <div class="onboarding-content">
+                                <div class="onboarding-title">Never Miss<br>A Moment</div>
+                                <div class="onboarding-description">Get smart reminders for birthdays, weddings, and all the important dates.</div>
+                            </div>
+                            <div class="onboarding-footer">
+                                <div class="pagination-dots">
+                                    <div class="dot inactive"></div>
+                                    <div class="dot inactive"></div>
+                                    <div class="dot active" style="background: #4CAF78;"></div>
+                                    <div class="dot inactive"></div>
+                                </div>
+                                <div class="onboarding-btn" style="background: linear-gradient(135deg, #4CAF78, #3D9E69); box-shadow: 0 12px 30px rgba(76, 175, 120, 0.35);">
+                                    <span>Next</span>
+                                    <div class="btn-icon-circle" style="color: #4CAF78;">→</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Step 3<span>Reminders (Green)</span></div>
+            </div>
+
+            <!-- Step 4: Gold -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="onboarding-screen">
+                            <div class="onboarding-illustration">
+                                <div class="gift-box-container">
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <span class="sparkle">✨</span>
+                                    <div class="gift-box-body gold">
+                                        <div class="gift-ribbon-v"></div>
+                                        <div class="gift-ribbon-h"></div>
+                                    </div>
+                                    <div class="gift-lid gold"></div>
+                                    <div class="gift-bow">🎀</div>
+                                    <div class="gift-content-icon">🎁</div>
+                                </div>
+                            </div>
+                            <div class="onboarding-content">
+                                <div class="onboarding-title">Give Perfect<br>Gifts, Every Time</div>
+                                <div class="onboarding-description">Access wishlists, registries, and personalized gift ideas based on their preferences.</div>
+                            </div>
+                            <div class="onboarding-footer">
+                                <div class="pagination-dots">
+                                    <div class="dot inactive"></div>
+                                    <div class="dot inactive"></div>
+                                    <div class="dot inactive"></div>
+                                    <div class="dot active" style="background: #F5A623;"></div>
+                                </div>
+                                <div class="onboarding-btn" style="background: linear-gradient(135deg, #F5A623, #E69612); box-shadow: 0 12px 30px rgba(245, 166, 35, 0.35);">
+                                    <span>Get Started</span>
+                                    <div class="btn-icon-circle" style="color: #F5A623;">→</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Step 4<span>Perfect Gifts (Gold)</span></div>
+            </div>
+        </div>
+
+        <!-- LOGIN SCREEN -->
+        <h2 class="section-title">Login Screen</h2>
+        <div class="screens-row">
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="login-screen">
+                            <div class="login-header">
+                                <div class="login-logo">🎁</div>
+                                <div class="login-welcome">Welcome back</div>
+                                <div class="login-subtitle">Sign in to continue gifting</div>
+                            </div>
+                            <div class="login-form">
+                                <div class="input-group">
+                                    <label class="input-label">Email</label>
+                                    <div class="input-field">
+                                        <span class="icon">✉️</span>
+                                        <span class="placeholder">Enter your email</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">Password</label>
+                                    <div class="input-field">
+                                        <span class="icon">🔒</span>
+                                        <span class="placeholder">Enter your password</span>
+                                        <span class="icon">👁️</span>
+                                    </div>
+                                </div>
+                                <div class="forgot-password">
+                                    <a href="#">Forgot Password?</a>
+                                </div>
+                            </div>
+                            <div class="login-btn">
+                                <span>Sign In</span>
+                                <div class="icon-circle">→</div>
+                            </div>
+                            <div class="divider">
+                                <div class="divider-line"></div>
+                                <span class="divider-text">or continue with</span>
+                                <div class="divider-line"></div>
+                            </div>
+                            <div class="social-btns">
+                                <div class="social-btn">
+                                    <div class="google-icon">G</div>
+                                    <span>Google</span>
+                                </div>
+                                <div class="social-btn apple">
+                                    <span>🍎</span>
+                                    <span>Apple</span>
+                                </div>
+                            </div>
+                            <div class="signup-link">
+                                Don't have an account? <a href="#">Sign Up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Login<span>Email + Social login</span></div>
+            </div>
+        </div>
+
+        <!-- MAIN APP SCREENS -->
+        <h2 class="section-title">Main App Screens</h2>
+        <div class="screens-row">
+            <!-- Home Screen -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="home-screen">
+                            <div class="home-glow"></div>
+                            <div class="home-header">
+                                <div>
+                                    <div class="greeting-text">Good morning</div>
+                                    <div class="user-name">Sarah Johnson</div>
+                                </div>
+                                <div class="home-avatar">SJ</div>
+                            </div>
+                            <div class="stats-row">
+                                <div class="stat-box">
+                                    <div class="stat-num coral">12</div>
+                                    <div class="stat-label">Upcoming</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-num purple">48</div>
+                                    <div class="stat-label">Contacts</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-num green">23</div>
+                                    <div class="stat-label">Gifts</div>
+                                </div>
+                            </div>
+                            <div class="section-header">
+                                <span class="section-title" style="margin:0; font-size:18px;">Upcoming Events</span>
+                                <span class="see-all-btn">See all</span>
+                            </div>
+                            <div class="event-card">
+                                <div class="event-icon birthday">🎂</div>
+                                <div class="event-info">
+                                    <div class="event-name">Mom's Birthday</div>
+                                    <div class="event-date">December 15, 2024</div>
+                                </div>
+                                <div class="event-badge soon">3 days</div>
+                            </div>
+                            <div class="event-card">
+                                <div class="event-icon anniversary">💝</div>
+                                <div class="event-info">
+                                    <div class="event-name">Anniversary</div>
+                                    <div class="event-date">December 20, 2024</div>
+                                </div>
+                                <div class="event-badge later">8 days</div>
+                            </div>
+                            <div class="tab-bar">
+                                <div class="tab-item">
+                                    <span class="tab-icon active">🏠</span>
+                                    <span class="tab-label active">Home</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">📅</span>
+                                    <span class="tab-label inactive">Calendar</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">👥</span>
+                                    <span class="tab-label inactive">Circles</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">🎁</span>
+                                    <span class="tab-label inactive">Gifts</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">👤</span>
+                                    <span class="tab-label inactive">Profile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Home<span>Events & Quick Actions</span></div>
+            </div>
+
+            <!-- Calendar Screen -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="calendar-screen">
+                            <div class="calendar-header">
+                                <span class="header-title">Calendar</span>
+                                <div class="today-btn">Today</div>
+                            </div>
+                            <div class="calendar-box">
+                                <div class="calendar-gradient-header">
+                                    <div class="month-nav">
+                                        <div class="month-nav-btn">←</div>
+                                        <div class="month-label">December 2024</div>
+                                        <div class="month-nav-btn">→</div>
+                                    </div>
+                                    <div class="weekdays-row">
+                                        <div class="weekday-cell">S</div>
+                                        <div class="weekday-cell">M</div>
+                                        <div class="weekday-cell">T</div>
+                                        <div class="weekday-cell">W</div>
+                                        <div class="weekday-cell">T</div>
+                                        <div class="weekday-cell">F</div>
+                                        <div class="weekday-cell">S</div>
+                                    </div>
+                                </div>
+                                <div class="days-grid">
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text muted">26</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text muted">27</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text muted">28</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text muted">29</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text muted">30</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">1</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">2</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">3</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">4</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">5</span><div class="event-dot"></div></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">6</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">7</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">8</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">9</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">10</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">11</span></div></div>
+                                    <div class="day-cell"><div class="day-inner today"><span class="day-text">12</span><div class="event-dot white"></div></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">13</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">14</span></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">15</span><div class="event-dot"></div></div></div>
+                                    <div class="day-cell"><div class="day-inner"><span class="day-text">16</span></div></div>
+                                </div>
+                            </div>
+                            <div class="upcoming-section">
+                                <div class="section-title" style="margin:0 0 14px; font-size:18px; text-align:left;">Upcoming Events</div>
+                                <div class="upcoming-item">
+                                    <div class="upcoming-dot coral"></div>
+                                    <div class="upcoming-info">
+                                        <div class="upcoming-name">Mom's Birthday</div>
+                                        <div class="upcoming-date">Dec 15</div>
+                                    </div>
+                                    <div class="days-tag coral">3 days</div>
+                                </div>
+                                <div class="upcoming-item">
+                                    <div class="upcoming-dot purple"></div>
+                                    <div class="upcoming-info">
+                                        <div class="upcoming-name">Anniversary</div>
+                                        <div class="upcoming-date">Dec 20</div>
+                                    </div>
+                                    <div class="days-tag purple">8 days</div>
+                                </div>
+                            </div>
+                            <div class="fab">+</div>
+                            <div class="tab-bar">
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">🏠</span>
+                                    <span class="tab-label inactive">Home</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon active">📅</span>
+                                    <span class="tab-label active">Calendar</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">👥</span>
+                                    <span class="tab-label inactive">Circles</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">🎁</span>
+                                    <span class="tab-label inactive">Gifts</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">👤</span>
+                                    <span class="tab-label inactive">Profile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Calendar<span>Month view + Events</span></div>
+            </div>
+
+            <!-- Circles Screen -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="circles-screen">
+                            <div class="circles-header">
+                                <span class="header-title">My Circles</span>
+                                <div class="add-btn">+</div>
+                            </div>
+                            <div class="circle-card">
+                                <div class="circle-top">
+                                    <div class="circle-emoji">👨‍👩‍👧</div>
+                                    <div class="circle-name">Family</div>
+                                    <div class="member-count">8 members</div>
+                                </div>
+                                <div class="avatars-row">
+                                    <div class="member-avatar" style="background: #E07B5C;">M</div>
+                                    <div class="member-avatar" style="background: #5B7FD7;">D</div>
+                                    <div class="member-avatar" style="background: #4CAF78;">S</div>
+                                    <div class="member-avatar more">+5</div>
+                                </div>
+                            </div>
+                            <div class="circle-card">
+                                <div class="circle-top">
+                                    <div class="circle-emoji">💼</div>
+                                    <div class="circle-name">Work Friends</div>
+                                    <div class="member-count">5 members</div>
+                                </div>
+                                <div class="avatars-row">
+                                    <div class="member-avatar" style="background: #E6A756;">J</div>
+                                    <div class="member-avatar" style="background: #5B7FD7;">A</div>
+                                    <div class="member-avatar more">+3</div>
+                                </div>
+                            </div>
+                            <div class="circle-card">
+                                <div class="circle-top">
+                                    <div class="circle-emoji">🎓</div>
+                                    <div class="circle-name">College Buddies</div>
+                                    <div class="member-count">3 members</div>
+                                </div>
+                                <div class="avatars-row">
+                                    <div class="member-avatar" style="background: #4CAF78;">R</div>
+                                    <div class="member-avatar more">+2</div>
+                                </div>
+                            </div>
+                            <div class="create-circle-card">
+                                <div class="create-circle-icon">+</div>
+                                <div class="create-circle-text">Create New Circle</div>
+                            </div>
+                            <div class="tab-bar">
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">🏠</span>
+                                    <span class="tab-label inactive">Home</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">📅</span>
+                                    <span class="tab-label inactive">Calendar</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon active">👥</span>
+                                    <span class="tab-label active">Circles</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">🎁</span>
+                                    <span class="tab-label inactive">Gifts</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">👤</span>
+                                    <span class="tab-label inactive">Profile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Circles<span>Group management</span></div>
+            </div>
+        </div>
+
+        <!-- MORE SCREENS -->
+        <div class="screens-row">
+            <!-- Gifts Screen -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="gifts-screen">
+                            <div class="gifts-header">
+                                <span class="header-title">Gift Ideas</span>
+                                <div class="search-btn">🔍</div>
+                            </div>
+                            <div class="tabs-row">
+                                <div class="tab active">All</div>
+                                <div class="tab inactive">Saved</div>
+                                <div class="tab inactive">Purchased</div>
+                            </div>
+                            <div class="gift-card">
+                                <div class="gift-image">📱</div>
+                                <div class="gift-info">
+                                    <div class="gift-name">Wireless Earbuds</div>
+                                    <div class="gift-for">For Mom's Birthday</div>
+                                    <div class="price-tag">$79.99</div>
+                                </div>
+                                <div class="heart-btn active">❤️</div>
+                            </div>
+                            <div class="gift-card">
+                                <div class="gift-image">📚</div>
+                                <div class="gift-info">
+                                    <div class="gift-name">Book Collection</div>
+                                    <div class="gift-for">For Dad's Birthday</div>
+                                    <div class="price-tag">$45.00</div>
+                                </div>
+                                <div class="heart-btn inactive">🤍</div>
+                            </div>
+                            <div class="gift-card">
+                                <div class="gift-image">🎨</div>
+                                <div class="gift-info">
+                                    <div class="gift-name">Art Supplies Kit</div>
+                                    <div class="gift-for">For Sister</div>
+                                    <div class="price-tag">$59.99</div>
+                                </div>
+                                <div class="heart-btn active">❤️</div>
+                            </div>
+                            <div class="tab-bar">
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">🏠</span>
+                                    <span class="tab-label inactive">Home</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">📅</span>
+                                    <span class="tab-label inactive">Calendar</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">👥</span>
+                                    <span class="tab-label inactive">Circles</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon active">🎁</span>
+                                    <span class="tab-label active">Gifts</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">👤</span>
+                                    <span class="tab-label inactive">Profile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Gifts<span>Gift tracking + Wishlist</span></div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="profile-screen">
+                            <div class="profile-glow"></div>
+                            <div class="profile-top">
+                                <div class="profile-avatar">SJ</div>
+                                <div class="profile-name">Sarah Johnson</div>
+                                <div class="profile-email">sarah@example.com</div>
+                            </div>
+                            <div class="profile-stats">
+                                <div class="stat-box">
+                                    <div class="stat-num purple">48</div>
+                                    <div class="stat-label">Contacts</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-num green">23</div>
+                                    <div class="stat-label">Gifts</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-num" style="color: #E6A756;">5</div>
+                                    <div class="stat-label">Circles</div>
+                                </div>
+                            </div>
+                            <div class="menu-section">
+                                <div class="menu-item">
+                                    <div class="menu-icon coral">⚙️</div>
+                                    <div class="menu-info">
+                                        <div class="menu-title">Settings</div>
+                                        <div class="menu-subtitle">Preferences & account</div>
+                                    </div>
+                                    <span class="menu-arrow">→</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div class="menu-icon purple">🔔</div>
+                                    <div class="menu-info">
+                                        <div class="menu-title">Notifications</div>
+                                        <div class="menu-subtitle">Reminders & alerts</div>
+                                    </div>
+                                    <span class="menu-arrow">→</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div class="menu-icon green">❓</div>
+                                    <div class="menu-info">
+                                        <div class="menu-title">Help & Support</div>
+                                        <div class="menu-subtitle">FAQs & contact us</div>
+                                    </div>
+                                    <span class="menu-arrow">→</span>
+                                </div>
+                            </div>
+                            <div class="logout-btn">
+                                <span>🚪</span>
+                                <span>Log Out</span>
+                            </div>
+                            <div class="tab-bar">
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">🏠</span>
+                                    <span class="tab-label inactive">Home</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">📅</span>
+                                    <span class="tab-label inactive">Calendar</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">👥</span>
+                                    <span class="tab-label inactive">Circles</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon inactive">🎁</span>
+                                    <span class="tab-label inactive">Gifts</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-icon active">👤</span>
+                                    <span class="tab-label active">Profile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-label">Profile<span>Settings & Account</span></div>
+            </div>
+        </div>
+
+        <!-- COLOR PALETTE -->
+        <div class="color-section">
+            <h2 class="color-title">Color <span>Palette</span></h2>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #E07B5C;"></div>
+                    <div class="swatch-name">Primary</div>
+                    <div class="swatch-hex">#E07B5C</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #C4956A;"></div>
+                    <div class="swatch-name">Secondary</div>
+                    <div class="swatch-hex">#C4956A</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #6B7FD7;"></div>
+                    <div class="swatch-name">Purple</div>
+                    <div class="swatch-hex">#6B7FD7</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #4CAF78;"></div>
+                    <div class="swatch-name">Green</div>
+                    <div class="swatch-hex">#4CAF78</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #F5A623;"></div>
+                    <div class="swatch-name">Gold</div>
+                    <div class="swatch-hex">#F5A623</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #FDF8F3;"></div>
+                    <div class="swatch-name">Background</div>
+                    <div class="swatch-hex">#FDF8F3</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FLOW DIAGRAM -->
+        <div class="flow-section">
+            <h2 class="flow-title">App Flow</h2>
+            <div class="flow-diagram">
+                <div class="flow-box">Splash</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box">Onboarding (4 steps)</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box">Login</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box main">Main App</div>
+            </div>
+            <div class="flow-tabs">
+                <div class="flow-tab">Home</div>
+                <div class="flow-tab">Calendar</div>
+                <div class="flow-tab">Circles</div>
+                <div class="flow-tab">Gifts</div>
+                <div class="flow-tab">Profile</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
