@@ -21,21 +21,21 @@
 
         /* Color Palette Variables */
         :root {
-            --primary: #E07B5C;
-            --primary-dark: #D06A4C;
-            --primary-light: #F5E6DA;
-            --secondary: #C4956A;
-            --secondary-dark: #A67B52;
-            --accent-purple: #6B7FD7;
-            --accent-green: #4CAF78;
-            --accent-gold: #F5A623;
+            --primary: #ca9ad6;
+            --primary-dark: #b080c0;
+            --primary-light: #f4cae8;
+            --secondary: #99f3ff;
+            --secondary-dark: #70d0dd;
+            --accent-purple: #f4cae8;
+            --accent-green: #99f3ff;
+            --accent-gold: #fffacf;
             --background: #FDF8F3;
             --background-dark: #F8EEE4;
             --card: #FFFFFF;
-            --text-dark: #3D3D3D;
-            --text-gray: #888888;
-            --text-light: #AAAAAA;
-            --border: #F5E6DA;
+            --text-dark: #330c54;
+            --text-gray: #5a3570;
+            --text-light: #8a6a9a;
+            --border: #f4cae8;
         }
 
         .preview-container {
@@ -167,7 +167,7 @@
         .splash-glow.top-right {
             width: 180px;
             height: 180px;
-            background: rgba(224, 123, 92, 0.2);
+            background: rgba(202, 154, 214, 0.3);
             top: -60px;
             right: -60px;
         }
@@ -175,7 +175,7 @@
         .splash-glow.bottom-left {
             width: 160px;
             height: 160px;
-            background: rgba(196, 149, 106, 0.15);
+            background: rgba(153, 243, 255, 0.25);
             bottom: -40px;
             left: -40px;
         }
@@ -226,7 +226,7 @@
             justify-content: center;
             font-size: 48px;
             margin-bottom: 28px;
-            box-shadow: 0 20px 40px rgba(224, 123, 92, 0.4);
+            box-shadow: 0 20px 40px rgba(202, 154, 214, 0.4);
             animation: logoFloat 4s ease-in-out infinite;
             position: relative;
             z-index: 5;
@@ -277,7 +277,7 @@
         .splash-loader-bar {
             width: 130px;
             height: 5px;
-            background: rgba(224, 123, 92, 0.2);
+            background: rgba(202, 154, 214, 0.3);
             border-radius: 3px;
             overflow: hidden;
             margin-bottom: 14px;
@@ -347,10 +347,10 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
-        .gift-box-body.coral { background: linear-gradient(135deg, #E07B5C, #D06A4C); }
-        .gift-box-body.purple { background: linear-gradient(135deg, #6B7FD7, #5A6EC6); }
-        .gift-box-body.green { background: linear-gradient(135deg, #4CAF78, #3D9E69); }
-        .gift-box-body.gold { background: linear-gradient(135deg, #F5A623, #E69612); }
+        .gift-box-body.coral { background: linear-gradient(135deg, #ca9ad6, #b080c0); }
+        .gift-box-body.purple { background: linear-gradient(135deg, #f4cae8, #e0b5d5); }
+        .gift-box-body.green { background: linear-gradient(135deg, #99f3ff, #70d0dd); }
+        .gift-box-body.gold { background: linear-gradient(135deg, #fffacf, #f0e8a0); }
 
         .gift-ribbon-v {
             position: absolute;
@@ -370,10 +370,10 @@
             border-radius: 4px;
         }
 
-        .coral .gift-ribbon-v, .coral .gift-ribbon-h { background: #C4956A; }
-        .purple .gift-ribbon-v, .purple .gift-ribbon-h { background: #A8B4E8; }
-        .green .gift-ribbon-v, .green .gift-ribbon-h { background: #8ED4A8; }
-        .gold .gift-ribbon-v, .gold .gift-ribbon-h { background: #FFD580; }
+        .coral .gift-ribbon-v, .coral .gift-ribbon-h { background: #99f3ff; }
+        .purple .gift-ribbon-v, .purple .gift-ribbon-h { background: #99f3ff; }
+        .green .gift-ribbon-v, .green .gift-ribbon-h { background: #ca9ad6; }
+        .gold .gift-ribbon-v, .gold .gift-ribbon-h { background: #99f3ff; }
 
         .gift-lid {
             position: absolute;
@@ -387,10 +387,10 @@
             box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
         }
 
-        .gift-lid.coral { background: linear-gradient(135deg, #E8856A, #D57050); }
-        .gift-lid.purple { background: linear-gradient(135deg, #7589E1, #6478D0); }
-        .gift-lid.green { background: linear-gradient(135deg, #5CBF88, #4DAE79); }
-        .gift-lid.gold { background: linear-gradient(135deg, #FFB633, #F5A623); }
+        .gift-lid.coral { background: linear-gradient(135deg, #d4a8df, #c090cc); }
+        .gift-lid.purple { background: linear-gradient(135deg, #f8d8ed, #ecc5e0); }
+        .gift-lid.green { background: linear-gradient(135deg, #aaf5ff, #80e0ee); }
+        .gift-lid.gold { background: linear-gradient(135deg, #fffcd8, #f5ecb0); }
 
         .gift-bow {
             position: absolute;
@@ -479,7 +479,7 @@
         .dot {
             height: 8px;
             border-radius: 4px;
-            background: rgba(224, 123, 92, 0.3);
+            background: rgba(202, 154, 214, 0.3);
             transition: all 0.3s ease;
         }
 
@@ -499,7 +499,7 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            box-shadow: 0 12px 30px rgba(224, 123, 92, 0.35);
+            box-shadow: 0 12px 30px rgba(202, 154, 214, 0.35);
         }
 
         .btn-icon-circle {
@@ -537,7 +537,7 @@
             justify-content: center;
             font-size: 38px;
             margin: 0 auto 25px;
-            box-shadow: 0 12px 30px rgba(224, 123, 92, 0.35);
+            box-shadow: 0 12px 30px rgba(202, 154, 214, 0.35);
         }
 
         .login-welcome {
@@ -618,7 +618,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 10px 30px rgba(224, 123, 92, 0.35);
+            box-shadow: 0 10px 30px rgba(202, 154, 214, 0.35);
             margin-bottom: 28px;
         }
 
@@ -719,7 +719,7 @@
             right: -40px;
             width: 180px;
             height: 180px;
-            background: rgba(224, 123, 92, 0.12);
+            background: rgba(202, 154, 214, 0.12);
             border-radius: 50%;
         }
 
@@ -753,7 +753,7 @@
             color: white;
             font-size: 17px;
             font-weight: 600;
-            box-shadow: 0 8px 20px rgba(224, 123, 92, 0.3);
+            box-shadow: 0 8px 20px rgba(202, 154, 214, 0.3);
         }
 
         .stats-row {
@@ -857,12 +857,12 @@
         .event-badge.soon {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            box-shadow: 0 4px 12px rgba(224, 123, 92, 0.3);
+            box-shadow: 0 4px 12px rgba(202, 154, 214, 0.3);
         }
 
         .event-badge.later {
             background: #F0F4FE;
-            color: #5B7FD7;
+            color: #f4cae8;
         }
 
         .quick-actions-section {
@@ -899,7 +899,7 @@
         .quick-action-icon.primary {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            box-shadow: 0 6px 16px rgba(224, 123, 92, 0.3);
+            box-shadow: 0 6px 16px rgba(202, 154, 214, 0.3);
         }
 
         .quick-action-icon.outline {
@@ -1035,7 +1035,7 @@
 
         .day-inner.today {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            box-shadow: 0 4px 12px rgba(224, 123, 92, 0.35);
+            box-shadow: 0 4px 12px rgba(202, 154, 214, 0.35);
         }
 
         .day-inner.today .day-text {
@@ -1104,7 +1104,7 @@
         }
 
         .days-tag.coral {
-            background: rgba(224, 123, 92, 0.1);
+            background: rgba(202, 154, 214, 0.1);
             color: var(--primary);
         }
 
@@ -1126,7 +1126,7 @@
             justify-content: center;
             color: white;
             font-size: 28px;
-            box-shadow: 0 8px 24px rgba(224, 123, 92, 0.4);
+            box-shadow: 0 8px 24px rgba(202, 154, 214, 0.4);
         }
 
         /* ============ CIRCLES SCREEN ============ */
@@ -1154,7 +1154,7 @@
             justify-content: center;
             color: white;
             font-size: 22px;
-            box-shadow: 0 8px 20px rgba(224, 123, 92, 0.35);
+            box-shadow: 0 8px 20px rgba(202, 154, 214, 0.35);
         }
 
         .circle-card {
@@ -1303,7 +1303,7 @@
         .tab.active {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            box-shadow: 0 8px 20px rgba(224, 123, 92, 0.3);
+            box-shadow: 0 8px 20px rgba(202, 154, 214, 0.3);
         }
 
         .gift-card {
@@ -1353,7 +1353,7 @@
             font-size: 13px;
             font-weight: 600;
             color: white;
-            box-shadow: 0 4px 12px rgba(224, 123, 92, 0.25);
+            box-shadow: 0 4px 12px rgba(202, 154, 214, 0.25);
         }
 
         .heart-btn {
@@ -1384,7 +1384,7 @@
             margin-left: -100px;
             width: 200px;
             height: 200px;
-            background: rgba(224, 123, 92, 0.1);
+            background: rgba(202, 154, 214, 0.1);
             border-radius: 50%;
         }
 
@@ -1407,7 +1407,7 @@
             font-size: 36px;
             font-weight: 600;
             margin: 0 auto 18px;
-            box-shadow: 0 15px 40px rgba(224, 123, 92, 0.35);
+            box-shadow: 0 15px 40px rgba(202, 154, 214, 0.35);
         }
 
         .profile-name {
@@ -1617,7 +1617,7 @@
         .flow-box.main {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            box-shadow: 0 8px 25px rgba(224, 123, 92, 0.35);
+            box-shadow: 0 8px 25px rgba(202, 154, 214, 0.35);
         }
 
         .flow-arrow {
@@ -1635,7 +1635,7 @@
 
         .flow-tab {
             padding: 10px 18px;
-            background: rgba(224, 123, 92, 0.1);
+            background: rgba(202, 154, 214, 0.1);
             border-radius: 12px;
             font-size: 0.85rem;
             color: var(--primary);
@@ -1646,7 +1646,7 @@
 <body>
     <div class="preview-container">
         <h1>Gift<span>Box</span>4you</h1>
-        <p class="subtitle">Main Branch Design - Warm Cream + Rich Coral Theme</p>
+        <p class="subtitle">Main Branch Design - Purple Lavender + Soft Pastels Theme</p>
 
         <!-- SPLASH SCREEN -->
         <h2 class="section-title">Splash Screen</h2>
@@ -1664,7 +1664,7 @@
                             <div class="splash-confetti"></div>
                             <div class="splash-confetti"></div>
                             <div class="splash-confetti"></div>
-                            <div class="splash-logo">🎁</div>
+                            <div class="splash-logo"><img src="/home/sathish/Downloads/appicon (2).svg" style="width: 70px; height: 70px;" alt="GiftBox4you"></div>
                             <div class="splash-title">
                                 <span class="splash-title-main">GiftBox</span>
                                 <span class="splash-title-accent">4you</span>
@@ -1757,13 +1757,13 @@
                             <div class="onboarding-footer">
                                 <div class="pagination-dots">
                                     <div class="dot inactive"></div>
-                                    <div class="dot active" style="background: #6B7FD7;"></div>
+                                    <div class="dot active" style="background: #f4cae8;"></div>
                                     <div class="dot inactive"></div>
                                     <div class="dot inactive"></div>
                                 </div>
-                                <div class="onboarding-btn" style="background: linear-gradient(135deg, #6B7FD7, #5A6EC6); box-shadow: 0 12px 30px rgba(107, 127, 215, 0.35);">
+                                <div class="onboarding-btn" style="background: linear-gradient(135deg, #f4cae8, #e0b5d5); box-shadow: 0 12px 30px rgba(244, 202, 232, 0.35);">
                                     <span>Next</span>
-                                    <div class="btn-icon-circle" style="color: #6B7FD7;">→</div>
+                                    <div class="btn-icon-circle" style="color: #f4cae8;">→</div>
                                 </div>
                             </div>
                         </div>
@@ -1801,12 +1801,12 @@
                                 <div class="pagination-dots">
                                     <div class="dot inactive"></div>
                                     <div class="dot inactive"></div>
-                                    <div class="dot active" style="background: #4CAF78;"></div>
+                                    <div class="dot active" style="background: #99f3ff;"></div>
                                     <div class="dot inactive"></div>
                                 </div>
-                                <div class="onboarding-btn" style="background: linear-gradient(135deg, #4CAF78, #3D9E69); box-shadow: 0 12px 30px rgba(76, 175, 120, 0.35);">
+                                <div class="onboarding-btn" style="background: linear-gradient(135deg, #99f3ff, #70d0dd); box-shadow: 0 12px 30px rgba(153, 243, 255, 0.35);">
                                     <span>Next</span>
-                                    <div class="btn-icon-circle" style="color: #4CAF78;">→</div>
+                                    <div class="btn-icon-circle" style="color: #99f3ff;">→</div>
                                 </div>
                             </div>
                         </div>
@@ -1844,11 +1844,11 @@
                                     <div class="dot inactive"></div>
                                     <div class="dot inactive"></div>
                                     <div class="dot inactive"></div>
-                                    <div class="dot active" style="background: #F5A623;"></div>
+                                    <div class="dot active" style="background: #fffacf;"></div>
                                 </div>
-                                <div class="onboarding-btn" style="background: linear-gradient(135deg, #F5A623, #E69612); box-shadow: 0 12px 30px rgba(245, 166, 35, 0.35);">
+                                <div class="onboarding-btn" style="background: linear-gradient(135deg, #fffacf, #f0e8a0); box-shadow: 0 12px 30px rgba(255, 250, 207, 0.35); color: #330c54;">
                                     <span>Get Started</span>
-                                    <div class="btn-icon-circle" style="color: #F5A623;">→</div>
+                                    <div class="btn-icon-circle" style="color: #fffacf; background: #330c54;">→</div>
                                 </div>
                             </div>
                         </div>
@@ -1866,7 +1866,7 @@
                     <div class="phone-screen">
                         <div class="login-screen">
                             <div class="login-header">
-                                <div class="login-logo">🎁</div>
+                                <div class="login-logo"><img src="/home/sathish/Downloads/appicon (2).svg" style="width: 55px; height: 55px;" alt="GiftBox4you"></div>
                                 <div class="login-welcome">Welcome back</div>
                                 <div class="login-subtitle">Sign in to continue gifting</div>
                             </div>
@@ -2111,9 +2111,9 @@
                                     <div class="member-count">8 members</div>
                                 </div>
                                 <div class="avatars-row">
-                                    <div class="member-avatar" style="background: #E07B5C;">M</div>
-                                    <div class="member-avatar" style="background: #5B7FD7;">D</div>
-                                    <div class="member-avatar" style="background: #4CAF78;">S</div>
+                                    <div class="member-avatar" style="background: #ca9ad6;">M</div>
+                                    <div class="member-avatar" style="background: #f4cae8;">D</div>
+                                    <div class="member-avatar" style="background: #99f3ff;">S</div>
                                     <div class="member-avatar more">+5</div>
                                 </div>
                             </div>
@@ -2124,8 +2124,8 @@
                                     <div class="member-count">5 members</div>
                                 </div>
                                 <div class="avatars-row">
-                                    <div class="member-avatar" style="background: #E6A756;">J</div>
-                                    <div class="member-avatar" style="background: #5B7FD7;">A</div>
+                                    <div class="member-avatar" style="background: #fffacf;">J</div>
+                                    <div class="member-avatar" style="background: #f4cae8;">A</div>
                                     <div class="member-avatar more">+3</div>
                                 </div>
                             </div>
@@ -2136,7 +2136,7 @@
                                     <div class="member-count">3 members</div>
                                 </div>
                                 <div class="avatars-row">
-                                    <div class="member-avatar" style="background: #4CAF78;">R</div>
+                                    <div class="member-avatar" style="background: #99f3ff;">R</div>
                                     <div class="member-avatar more">+2</div>
                                 </div>
                             </div>
@@ -2265,7 +2265,7 @@
                                     <div class="stat-label">Gifts</div>
                                 </div>
                                 <div class="stat-box">
-                                    <div class="stat-num" style="color: #E6A756;">5</div>
+                                    <div class="stat-num" style="color: #fffacf;">5</div>
                                     <div class="stat-label">Circles</div>
                                 </div>
                             </div>
@@ -2333,29 +2333,29 @@
             <h2 class="color-title">Color <span>Palette</span></h2>
             <div class="color-grid">
                 <div class="color-swatch">
-                    <div class="swatch-circle" style="background: #E07B5C;"></div>
+                    <div class="swatch-circle" style="background: #330c54;"></div>
+                    <div class="swatch-name">Text</div>
+                    <div class="swatch-hex">#330c54</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #ca9ad6;"></div>
                     <div class="swatch-name">Primary</div>
-                    <div class="swatch-hex">#E07B5C</div>
+                    <div class="swatch-hex">#ca9ad6</div>
                 </div>
                 <div class="color-swatch">
-                    <div class="swatch-circle" style="background: #C4956A;"></div>
-                    <div class="swatch-name">Secondary</div>
-                    <div class="swatch-hex">#C4956A</div>
+                    <div class="swatch-circle" style="background: #f4cae8;"></div>
+                    <div class="swatch-name">Accent 1</div>
+                    <div class="swatch-hex">#f4cae8</div>
                 </div>
                 <div class="color-swatch">
-                    <div class="swatch-circle" style="background: #6B7FD7;"></div>
-                    <div class="swatch-name">Purple</div>
-                    <div class="swatch-hex">#6B7FD7</div>
+                    <div class="swatch-circle" style="background: #fffacf;"></div>
+                    <div class="swatch-name">Accent 2</div>
+                    <div class="swatch-hex">#fffacf</div>
                 </div>
                 <div class="color-swatch">
-                    <div class="swatch-circle" style="background: #4CAF78;"></div>
-                    <div class="swatch-name">Green</div>
-                    <div class="swatch-hex">#4CAF78</div>
-                </div>
-                <div class="color-swatch">
-                    <div class="swatch-circle" style="background: #F5A623;"></div>
-                    <div class="swatch-name">Gold</div>
-                    <div class="swatch-hex">#F5A623</div>
+                    <div class="swatch-circle" style="background: #99f3ff;"></div>
+                    <div class="swatch-name">Accent 3</div>
+                    <div class="swatch-hex">#99f3ff</div>
                 </div>
                 <div class="color-swatch">
                     <div class="swatch-circle" style="background: #FDF8F3;"></div>
